@@ -25,7 +25,7 @@ Therefore, I think referencing provides flexibility and simplifies updates by is
 
 ### Tour Document Example:
 
-```json
+```javascript
 {
    _id: 16,
    price: Decimal128("220.00"),
@@ -98,7 +98,7 @@ Therefore, I think referencing provides flexibility and simplifies updates by is
 
 ### Tourist Attraction Document Example:
 
-```json
+```javascript
 {
    _id: 3,
    name: 'Muckross Friary',
@@ -122,7 +122,7 @@ User embeds bookings - Booking belongs to one user and is very unlikely to chang
 
 ### User Document Example:
 
-```json
+```javascript
 {
    _id: 5,
    firstName: 'William',
