@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+
+  webapp:
+    image: ${DOCKER_REGISTRY-}webapp
+    ports:
+      - "8001:80"   
+    build:
+      context: .
+      dockerfile: WebApp/Dockerfile
+    depends_on:
+      - mySqlDB
+      - mongoDB
+    environment:
+      - MySqlConnectionString=Server=mySqlDB;Database=TravelAgencyDB;User ID=root;Password=pass;Port=3306
+      - MongoDbConnectionString=mongodb://mongodb:27017
+      - DbName=TravelAgencyDB
+    networks:
+      - my-network
+
+  mySqlDB:
+    restart: unless-stopped
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: TravelAgencyDB
+      MYSQL_ROOT_PASSWORD: pass
+    networks:
+      - my-network
+
+  mongoDB:
+    image: mongo:5.0
+    container_name: mongoDB
+    ports:
+      - "27017:27017"
+    networks:
+      - my-network
+
+networks:
+    my-network:
+      driver: bridge

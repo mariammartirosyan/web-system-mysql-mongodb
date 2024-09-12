@@ -1,0 +1,73 @@
+﻿@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+<div class="message @(ViewBag.MessageType == "success" ? "success" : "error")">
+    @ViewBag.Message
+</div>
+}
+
+<div class="container">
+    <form asp-action="InitializeMySqlDb" method="post">
+        <button class="button" type="submit">Initialize MySQL DB</button>
+    </form>
+    <form asp-action="MigrateDataToMongoDb" method="post">
+        <button class="button" type="submit">Migrate Data to MongoDB</button>
+    </form>
+    @if (Model.Users != null && Model.Users.Count() > 0)
+    {
+    @*<form asp-action="SaveSelectedUser" method="post">
+            <div class="form-group">
+                <label for="selectedUserId">Select User</label>
+                <select id="selectedUserId" name="SelectedUserId" class="form-control">
+                    @foreach (var user in Model.Users)
+                    {
+                        <option value="@user.Id">@user.Email</option>
+                    }
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Save Selected User</button>
+        </form>*@
+    <form asp-action="SaveSelectedUser" method="post">
+        <div class="form-group">
+            <label for="selectedUserId">Select User</label>
+            <div class="dropdown-container">
+                <select id="selectedUserId" name="SelectedUserId" class="form-control dropdown">
+                    @foreach (var user in Model.Users)
+                            {
+                    <option value="@user.Id">@user.Email</option>
+                    @if (Model.SelectedUserId != 0 && Model.SelectedUserId == user.Id)
+                                {
+                    <option value="@user.Id" selected>@user.Email</option>
+                                }
+                    @*else
+                        {
+                            <option value="@user.Id">@user.Email</option>
+                        }*@
+                            }
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Save Selected User</button>
+        </div>
+
+    </form>
+    @*<form asp-action="SaveSelectedUser" method="post">
+            <div class="form-group mb-3">
+                <label for="selectedUserId">Select User</label>
+                <select id="selectedUserId" name="SelectedUserId" class="form-control dropdown">
+                    @foreach (var user in Model.Users)
+                    {
+                        <option value="@user.Id">@user.Email</option>
+                    }
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Save Selected User</button>
+        </form>*@
+    }
+
+</div>
+

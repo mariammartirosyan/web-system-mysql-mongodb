@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ReportRow>
+
+@{
+    ViewData["Title"] = "The most popular tours offered by the agency.";
+}
+
+<h2 class="blue-header">Our Most Popular Tours: Visiting Natural Landscapes for Under 500€</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tour Description</th>
+            <th>Tourist Attraction Name</th>
+            <th>Tourist Attraction Location</th>
+            <th>Price</th>
+            <th>Number of Bookings</th>
+            <th>Attraction Type Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() > 0)
+        {
+            @foreach (var reportRow in Model)
+            {
+                <tr>
+                    <td>@reportRow.Description</td>
+                    <td>@reportRow.AttractionName</td>
+                    <td>@reportRow.AttractionLocation</td>
+                    <td>@reportRow.Price</td>
+                    <td>@reportRow.BookingsNumber</td>
+                    <td>@reportRow.AttractionTypeName</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Tour" asp-action="Details" asp-route-id="@reportRow.TourId">View Tour Details</a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

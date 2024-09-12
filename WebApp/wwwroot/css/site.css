@@ -1,0 +1,91 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.button {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.blue-header {
+    color: #007bff;
+}
+.fixed-bottom-right {
+    width: 141px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.dropdown-container {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown {
+    width: auto;
+    min-width: 150px; 
+    white-space: nowrap;
+}
+
+    .dropdown option {
+        white-space: nowrap;
+    }
+.navbar-text + .navbar-text {
+    margin-left: 15px;
+}
+.make-booking {
+    width: 141px;
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    z-index: 1000;
+}
