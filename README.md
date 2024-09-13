@@ -2,11 +2,12 @@
 
 ## Project Overview
 
-The project involves the design and development of a web system for a travel agency. The goal is to utilize NoSQL and relational database models for the same domain, exploring how their structures differ and how the NoSQL model can be optimized by taking into account its characteristics.
+The project involves the design and development of a web system for a travel agency. The goal is to utilize NoSQL and relational database models for the same domain, explore how their structures differ, and how the NoSQL model can be optimized by taking into account its characteristics.
 
 The system supports: 
 - Filling data in a MySQL DB. 
 - Data Migration from MySQL to MongoDB.
+- Switching between MySQL and MongoDB.
 - Domain-related functionalities using either of the database models.
 
 ## Entity-Relationship Model 
@@ -23,7 +24,7 @@ The system supports:
 - **Tour references tourist attractions** - There is a many-to-many relationship here. In a real-life application, the tourist attractions data would be accessed on its own so that the travel agency manager could include them in tours. There would be a need to update the data, and this would mean propagating the changes to all the tours that embed them.
 Therefore, I think referencing provides flexibility and simplifies updates by isolating tourist attractions in their own documents.
 
-### Tour Document Example:
+**Tour Document Example:**
 
 ```javascript
 {
@@ -96,7 +97,7 @@ Therefore, I think referencing provides flexibility and simplifies updates by is
 
 - **Tourist attraction embeds attraction types** - Although there is a many-to-many relationship here, the tourist attraction type is not that likely to change once the tourist attraction has been created. Moreover, the tourist attraction type is accessed in the context of a tourist attraction while generating the report. In my opinion, the frequency of data reads significantly outweighs that of updates in this case.
 
-### Tourist Attraction Document Example:
+**Tourist Attraction Document Example:**
 
 ```javascript
 {
@@ -120,7 +121,7 @@ Therefore, I think referencing provides flexibility and simplifies updates by is
 User embeds bookings - Booking belongs to one user and is very unlikely to change once created. Moreover, in the application, the user has the capability to view their booking history. The embedded ‘booking’ here differs from the one in the ‘tour’ document, as it has a reference to the ‘tour’ it belongs to. This is necessary because the user can view the tour details, while checking their booking history.
 - **User references address** - Since an address can belong to many users, any changes to an address must be propagated among all associated users. Hence, I decided to use referencing instead.
 
-### User Document Example:
+**User Document Example:**
 
 ```javascript
 {
@@ -172,7 +173,7 @@ Let's consider a use-case that is supported by the system: generting a report of
 
 For the MySQL version there are many joins as data from five different tables were required to gather the final result, while for the MongoDB version only the `touristAttraction` collection is joined, the rest is embedded in the `tour` document.
 
-### MySQL Query
+**MySQL Query:**
 ```sql
 Select t.Id 'Tour Id', 
        Count(b.TourId) 'Number of bookings', 
@@ -191,7 +192,7 @@ Where at.Name = 'Natural Landscape' and t.Price < 500
 Group by t.Id, ta.Name, ta.Location, t.Price, at.Name
 Order by Count(b.TourId) desc, t.Id desc
 ```
-### MongoDB Pipeline 
+**MongoDB Pipeline:**
 
 ```javascript
 db.tours.aggregate([
@@ -258,7 +259,7 @@ db.tours.aggregate([
   }
 ]);
 ```
-### Running the Application
+## Running the Application
 
 To start the application, run the following command in your terminal:
 
@@ -268,4 +269,4 @@ docker-compose up --build
 
 This will launch three containers: `webapp`, `mySqlDB`, and `mongoDB`.
 
-Once the containers are up and running, you can access the application by navigating to the following URL in your browser: <http://localhost:8001/>
+Once the containers are up and running, the application can be accessed through the following URL: <http://localhost:8001/>
